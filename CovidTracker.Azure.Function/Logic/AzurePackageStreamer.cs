@@ -31,7 +31,7 @@ namespace CovidTracker.Azure.Function.Logic
             AzureBuild build = await GetLatestBuildAsync(organization, project);
             AzurePackage package = await _packageClient.GetBuildPackageAsync(organization, project, build.ID.ToString(), artifactName);
 
-            return await _httpClient.GetAsync(package.DownloadUrl);
+            return await _httpClient.GetAsync(package.Resource.DownloadUrl);
         }
 
         private async Task<AzureBuild> GetLatestBuildAsync(string organization, string project)
