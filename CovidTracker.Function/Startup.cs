@@ -11,20 +11,25 @@ namespace CovidTracker.Function
     {
         public override void Configure(IFunctionsHostBuilder builder)
         {
-            builder.Services.AddTransient((s) => {
-                return new AzurePackageCoordinator(
-                    new AzurePackageStreamer(
-                        new PipelinePackageClient(
-                            new AzureUrlGenerator(),
-                            new HttpClientWrapper(),
-                            new JsonClient()),
-                        new PipelineBuildClient(
-                            new AzureUrlGenerator(),
-                            new HttpClientWrapper(),
-                            new JsonClient()),
-                        new HttpClientWrapper()),
-                    new ZipFileDownloader(new FileSystemClient()),
-                    new PathUtility(),
+            builder.Services.AddTransient((s) =>
+            {
+                return new MasterGenerator(
+                    new AzurePackageCoordinator(
+                        new AzurePackageStreamer(
+                            new PipelinePackageClient(
+                                new AzureUrlGenerator(),
+                                new HttpClientWrapper(),
+                                new JsonClient()),
+                            new PipelineBuildClient(
+                                new AzureUrlGenerator(),
+                                new HttpClientWrapper(),
+                                new JsonClient()),
+                            new HttpClientWrapper()),
+                        new ZipFileDownloader(new FileSystemClient()),
+                        new PathUtility(),
+                        new FileSystemClient()),
+                    new GitManager(new GitClient(new CommandClient())),
+                    new CommandClient(),
                     new FileSystemClient());
             });
         }

@@ -11,7 +11,7 @@ namespace CovidTracker.Function
 {
     public class SiteGenerator : FunctionBase
     {
-        public SiteGenerator(AzurePackageCoordinator packageCoordinator) : base(packageCoordinator)
+        public SiteGenerator(MasterGenerator generator) : base(generator)
         {}
 
         [FunctionName("SiteGenerator")]

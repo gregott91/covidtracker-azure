@@ -1,4 +1,4 @@
-﻿namespace CovidTracker.Function.Clients.Models
+﻿namespace CovidTracker.Function.Models
 {
     public class AzureArtifactConfiguration
     {

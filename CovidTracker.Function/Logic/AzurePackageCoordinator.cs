@@ -29,10 +29,8 @@ namespace CovidTracker.Function.Logic
             _fileSystem = fileSystem;
         }
 
-        public async Task<string> DownloadPackageAsync(AzureArtifactConfiguration config, string downloadPath, ILoggingClient logger)
+        public async Task<string> DownloadPackageAsync(AzureArtifactConfiguration config, string directoryPath, ILoggingClient logger)
         {
-            string directoryPath = _fileSystem.CreateRandomDirectory(downloadPath);
-
             logger.LogInfo($"Downloading to {directoryPath}");
 
             using Stream stream = await _packageStreamer.StreamLatestPackageAsync(config.Organzation, config.Project, config.Package, config.DefinitionID);

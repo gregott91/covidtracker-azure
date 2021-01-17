@@ -9,7 +9,12 @@ namespace CovidTracker.Function.Clients
     {
         public string CreateRandomDirectory(string parentDirectory)
         {
-            string directoryPath = Path.Combine(parentDirectory, Guid.NewGuid().ToString());
+            return CreateDirectory(parentDirectory, Guid.NewGuid().ToString());
+        }
+
+        public string CreateDirectory(string parentDirectory, string directoryName)
+        {
+            string directoryPath = Path.Combine(parentDirectory, directoryName);
             Directory.CreateDirectory(directoryPath);
 
             return directoryPath;
@@ -27,6 +32,11 @@ namespace CovidTracker.Function.Clients
 
             stream.Seek(0, SeekOrigin.Begin);
             stream.CopyTo(fileStream);
+        }
+
+        public void CopyFile(string sourceDirectory, string destinationDirectory, string fileName)
+        {
+            File.Copy(Path.Combine(sourceDirectory, fileName), Path.Combine(destinationDirectory, fileName), true);
         }
     }
 }

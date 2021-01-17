@@ -13,7 +13,7 @@ namespace CovidTracker.Function
 {
     public class SiteGeneratorHttpTrigger : FunctionBase
     {
-        public SiteGeneratorHttpTrigger(AzurePackageCoordinator packageCoordinator) : base(packageCoordinator)
+        public SiteGeneratorHttpTrigger(MasterGenerator generator) : base(generator)
         { }
 
         [FunctionName("SiteGeneratorHttpTrigger")]
