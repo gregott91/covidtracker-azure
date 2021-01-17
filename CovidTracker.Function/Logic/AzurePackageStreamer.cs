@@ -23,17 +23,17 @@ namespace CovidTracker.Function.Logic
             _httpClient = httpClient;
         }
 
-        public async Task<Stream> StreamLatestPackageAsync(string organization, string project, string artifactName)
+        public async Task<Stream> StreamLatestPackageAsync(string organization, string project, string artifactName, string definitionID)
         {
-            AzureBuild build = await GetLatestBuildAsync(organization, project);
+            AzureBuild build = await GetLatestBuildAsync(organization, project, definitionID);
             AzurePackage package = await _packageClient.GetBuildPackageAsync(organization, project, build.ID.ToString(), artifactName);
 
             return await _httpClient.GetAsync(package.Resource.DownloadUrl);
         }
 
-        private async Task<AzureBuild> GetLatestBuildAsync(string organization, string project)
+        private async Task<AzureBuild> GetLatestBuildAsync(string organization, string project, string definitionID)
         {
-            AzureBuilds builds = await _buildClient.GetBuildsAsync(organization, project, "completed", "succeeded", 1);
+            AzureBuilds builds = await _buildClient.GetBuildsAsync(organization, project, "completed", "succeeded", definitionID, 1);
 
             if (builds.Count == 0)
             {

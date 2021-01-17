@@ -20,9 +20,9 @@ namespace CovidTracker.Function.Clients
             _jsonClient = jsonClient;
         }
 
-        public async Task<AzureBuilds> GetBuildsAsync(string organization, string project, string status, string result, int numToReturn)
+        public async Task<AzureBuilds> GetBuildsAsync(string organization, string project, string status, string result, string definitionID, int numToReturn)
         {
-            string url = _urlGenerator.GenerateBuildUrl(organization, project, status, result, numToReturn.ToString());
+            string url = _urlGenerator.GenerateBuildUrl(organization, project, status, result, definitionID, numToReturn.ToString());
             using var stream = await _httpClient.GetAsync(url);
 
             return await _jsonClient.DeserializeAsync<AzureBuilds>(stream);

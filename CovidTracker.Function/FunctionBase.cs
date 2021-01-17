@@ -26,7 +26,8 @@ namespace CovidTracker.Function
                 Organzation = "gregoryott2345",
                 Project = "go-covidtracker",
                 Package = "covidtracker",
-                Executable = "covidtracker"
+                Executable = "covidtracker",
+                DefinitionID = "1"
             },
             "D:\\local\\temp",
             new FunctionLoggingClient(logger));

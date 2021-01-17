@@ -2,9 +2,9 @@
 {
     public class AzureUrlGenerator
     {
-        public string GenerateBuildUrl(string organization, string project, string status, string result, string numToReturn)
+        public string GenerateBuildUrl(string organization, string project, string status, string result, string definitionID, string numToReturn)
         {
-            return $"https://dev.azure.com/{organization}/{project}/_apis/build/builds?$top={numToReturn}&statusFilter={status}&resultFilter={result}&api-version=5.0";
+            return $"https://dev.azure.com/{organization}/{project}/_apis/build/builds?$top={numToReturn}&statusFilter={status}&resultFilter={result}&definitions={definitionID}&api-version=5.0";
         }
 
         public string GeneratePackageUrl(string organization, string project, string buildID, string artifactName)

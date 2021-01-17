@@ -9,5 +9,7 @@
         public string Package { get; set; }
 
         public string Executable { get; set; }
+
+        public string DefinitionID { get; set; }
     }
 }
