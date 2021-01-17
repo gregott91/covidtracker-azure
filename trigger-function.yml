@@ -3,7 +3,7 @@ resources:
   pipelines:
   - pipeline: Function-CI
     source: Function-CI
-    trigger: 
+    trigger:
       branches:
       - main
 
