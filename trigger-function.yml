@@ -9,3 +9,12 @@ jobs:
       function: https://covidtrackergenerator.azurewebsites.net/api/SiteGeneratorHttpTrigger
       key: '$(functionkey)'
       method: 'GET'
+# this is being defined in app-ci pipeline
+  resources:
+    pipelines:
+    - pipeline: Function-CI
+      source: Function-CI
+      trigger: 
+        branches:
+          include: 
+              - main
