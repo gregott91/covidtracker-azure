@@ -6,6 +6,11 @@ resources:
     trigger:
       branches:
       - main
+  - pipeline: Go-CI
+    source: Go-CI
+    trigger:
+      branches:
+      - main
 
 jobs:
 - job: FunctionTrigger
