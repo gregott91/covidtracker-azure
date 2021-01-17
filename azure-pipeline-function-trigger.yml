@@ -1,0 +1,8 @@
+pool:
+   vmImage: 'windows-latest'
+
+steps: 
+- task: AzureFunction@1
+  inputs:
+    function: https://covidtrackergenerator.azurewebsites.net/api/SiteGeneratorHttpTrigger
+    key: asdasdasd
