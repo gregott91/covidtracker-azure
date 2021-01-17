@@ -1,8 +1,10 @@
-pool:
-   vmImage: 'windows-latest'
-
-steps: 
-- task: AzureFunction@0
-  inputs:
-    function: https://covidtrackergenerator.azurewebsites.net/api/SiteGeneratorHttpTrigger
-    key: $(functionkey)
+# Delay
+# Delay further execution of a workflow by a fixed time
+jobs:
+- job: FunctionTrigger
+  pool: Server
+  steps:
+  - task: AzureFunction@1
+    inputs:
+      function: https://covidtrackergenerator.azurewebsites.net/api/SiteGeneratorHttpTrigger
+      key: $(functionkey)
