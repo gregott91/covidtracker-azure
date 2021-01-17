@@ -20,10 +20,10 @@ namespace CovidTracker.Function.Clients
             _jsonClient = jsonClient;
         }
 
-        public async Task<AzurePackage> GetBuildPackageAsync(string organization, string project, string buildID, string artifactName)
+        public async Task<AzurePackage> GetBuildPackageAsync(string organization, string project, string buildID, string artifactName, ILoggingClient logger)
         {
             string url = _urlGenerator.GeneratePackageUrl(organization, project, buildID, artifactName);
-            using var stream = await _httpClient.GetAsync(url);
+            using var stream = await _httpClient.GetAsync(url, logger);
 
             return await _jsonClient.DeserializeAsync<AzurePackage>(stream);
         }

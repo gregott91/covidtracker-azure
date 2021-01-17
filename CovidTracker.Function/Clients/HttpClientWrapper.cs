@@ -9,8 +9,10 @@ namespace CovidTracker.Function.Clients
     {
         private static HttpClient _httpClient = new HttpClient();
 
-        public async Task<Stream> GetAsync(string url)
+        public async Task<Stream> GetAsync(string url, ILoggingClient logger)
         {
+            logger.LogInfo($"Sending GET to {url}");
+
             HttpResponseMessage response = await _httpClient.GetAsync(url);
 
             if (response.IsSuccessStatusCode)

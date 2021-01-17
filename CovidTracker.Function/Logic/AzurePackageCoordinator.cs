@@ -33,7 +33,7 @@ namespace CovidTracker.Function.Logic
         {
             logger.LogInfo($"Downloading to {directoryPath}");
 
-            using Stream stream = await _packageStreamer.StreamLatestPackageAsync(config.Organzation, config.Project, config.Package, config.DefinitionID);
+            using Stream stream = await _packageStreamer.StreamLatestPackageAsync(config.Organzation, config.Project, config.Package, config.DefinitionID, logger);
 
             string path = DownloadToPath(stream, directoryPath, logger);
 

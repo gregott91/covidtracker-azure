@@ -36,6 +36,7 @@ namespace CovidTracker.Function.Logic
             ILoggingClient logger)
         {
             string directoryPath = _fileSystemClient.CreateRandomDirectory(path);
+            logger.LogInfo($"Working directory: {directoryPath}");
 
             try
             {
