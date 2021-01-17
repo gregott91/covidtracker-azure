@@ -1,5 +1,13 @@
-# Delay
-# Delay further execution of a workflow by a fixed time
+trigger: none
+resources:
+  pipelines:
+  - pipeline: Function-CI
+    source: Function-CI
+    trigger:
+    branches:
+      include:
+        - main
+
 jobs:
 - job: FunctionTrigger
   pool: Server
@@ -9,12 +17,3 @@ jobs:
       function: https://covidtrackergenerator.azurewebsites.net/api/SiteGeneratorHttpTrigger
       key: '$(functionkey)'
       method: 'GET'
-# this is being defined in app-ci pipeline
-  resources:
-    pipelines:
-    - pipeline: Function-CI
-      source: Function-CI
-      trigger: 
-        branches:
-          include: 
-              - main
