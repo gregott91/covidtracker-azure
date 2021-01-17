@@ -38,5 +38,10 @@ namespace CovidTracker.Function.Clients
         {
             File.Copy(Path.Combine(sourceDirectory, fileName), Path.Combine(destinationDirectory, fileName), true);
         }
+
+        public void DeleteDirectory(string directory)
+        {
+            Directory.Delete(directory, true);
+        }
     }
 }

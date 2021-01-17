@@ -30,23 +30,31 @@ namespace CovidTracker.Function.Logic
 
         public async Task HandleGenerationAsync(
             AzureArtifactConfiguration artifactConfig,
-            GitConfig gitConfig, 
+            GitConfig gitConfig,
             string outputFileName,
             string path,
             ILoggingClient logger)
         {
             string directoryPath = _fileSystemClient.CreateRandomDirectory(path);
-            string file = await _packageCoordinator.DownloadPackageAsync(artifactConfig, directoryPath, logger);
 
-            await _exeClient.RunAsync(file, Path.Combine(directoryPath, outputFileName));
-            
-            string gitPath = _fileSystemClient.CreateDirectory(directoryPath, "git");
-            await _gitManager.CloneRepoAsync(gitPath, gitConfig.CloneUrl);
+            try
+            {
+                string file = await _packageCoordinator.DownloadPackageAsync(artifactConfig, directoryPath, logger);
 
-            string localRepoPath = Path.Combine(gitPath, gitConfig.RepoName);
+                await _exeClient.RunAsync(file, Path.Combine(directoryPath, outputFileName));
 
-            _fileSystemClient.CopyFile(directoryPath, localRepoPath, outputFileName);
-            await _gitManager.CommitFileAsync(localRepoPath, outputFileName, "Updating HTML");
+                string gitPath = _fileSystemClient.CreateDirectory(directoryPath, "git");
+                await _gitManager.CloneRepoAsync(gitPath, gitConfig.CloneUrl);
+
+                string localRepoPath = Path.Combine(gitPath, gitConfig.RepoName);
+
+                _fileSystemClient.CopyFile(directoryPath, localRepoPath, outputFileName);
+                await _gitManager.CommitFileAsync(localRepoPath, outputFileName, "Updating HTML", logger);
+            }
+            finally
+            {
+                _fileSystemClient.DeleteDirectory(directoryPath);
+            }
         }
     }
 }
