@@ -3,10 +3,9 @@ resources:
   pipelines:
   - pipeline: Function-CI
     source: Function-CI
-    trigger:
-    branches:
-      include:
-        - main
+    trigger: 
+      branches:
+      - main
 
 jobs:
 - job: FunctionTrigger
