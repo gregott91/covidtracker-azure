@@ -8,4 +8,4 @@ jobs:
     inputs:
       function: https://covidtrackergenerator.azurewebsites.net/api/SiteGeneratorHttpTrigger
       key: '$(functionkey)'
-	   method: 'GET'
+      method: 'GET'
