@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace CovidTracker.Azure.Function.Clients.Models
+﻿namespace CovidTracker.Function.Clients.Models
 {
     public class AzureArtifactConfiguration
     {

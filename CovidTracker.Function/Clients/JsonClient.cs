@@ -1,11 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Text;
+﻿using System.IO;
 using System.Text.Json;
 using System.Threading.Tasks;
 
-namespace CovidTracker.Azure.Function.Clients
+namespace CovidTracker.Function.Clients
 {
     public class JsonClient
     {

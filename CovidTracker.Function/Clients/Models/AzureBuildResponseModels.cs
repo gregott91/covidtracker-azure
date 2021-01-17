@@ -1,8 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using System.Collections.Generic;
 
-namespace CovidTracker.Azure.Function.Clients.Models
+namespace CovidTracker.Function.Clients.Models
 {
     public class AzureBuild
     {

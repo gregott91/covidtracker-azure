@@ -1,39 +1,43 @@
-﻿using CovidTracker.Azure.Function.Clients;
-using CovidTracker.Azure.Function.Clients.Models;
-using CovidTracker.Azure.Function.Models;
-using CovidTracker.Azure.Function.Utility;
+﻿using CovidTracker.Function.Clients;
+using CovidTracker.Function.Clients.Models;
+using CovidTracker.Function.Models;
+using CovidTracker.Function.Utility;
 using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 
-namespace CovidTracker.Azure.Function.Logic
+namespace CovidTracker.Function.Logic
 {
     public class AzurePackageCoordinator
     {
         private AzurePackageStreamer _packageStreamer;
         private ZipFileDownloader _downloader;
         private PathUtility _pathUtil;
+        private FileSystemClient _fileSystem;
 
         public AzurePackageCoordinator(
             AzurePackageStreamer packageStreamer,
             ZipFileDownloader fileDownloader,
-            PathUtility pathUtil)
+            PathUtility pathUtil,
+            FileSystemClient fileSystem)
         {
             _packageStreamer = packageStreamer;
             _downloader = fileDownloader;
             _pathUtil = pathUtil;
+            _fileSystem = fileSystem;
         }
 
-        public async Task<string> DownloadPackageAsync(AzureArtifactConfiguration config)
+        public async Task<string> DownloadPackageAsync(AzureArtifactConfiguration config, string downloadPath, ILoggingClient logger)
         {
-            string directoryPath = config.Executable;
+            string directoryPath = _fileSystem.CreateRandomDirectory(downloadPath);
+
+            logger.LogInfo($"Downloading to {directoryPath}");
 
             using Stream stream = await _packageStreamer.StreamLatestPackageAsync(config.Organzation, config.Project, config.Package);
 
-            string path = DownloadToPath(stream, directoryPath);
+            string path = DownloadToPath(stream, directoryPath, logger);
 
             IEnumerable<string> dirs = _pathUtil.GetDirectories(path);
 
@@ -52,9 +56,9 @@ namespace CovidTracker.Azure.Function.Logic
             return packageFilePath;
         }
 
-        private string DownloadToPath(Stream stream, string directoryPath)
+        private string DownloadToPath(Stream stream, string directoryPath, ILoggingClient logger)
         {
-            _downloader.DownloadAndExtract(stream, directoryPath);
+            _downloader.DownloadAndExtract(stream, directoryPath, logger);
 
             return Path.GetFullPath(directoryPath);
         }

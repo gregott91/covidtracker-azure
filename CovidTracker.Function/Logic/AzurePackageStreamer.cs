@@ -1,14 +1,11 @@
-﻿using CovidTracker.Azure.Function.Clients;
-using CovidTracker.Azure.Function.Clients.Models;
-using CovidTracker.Azure.Function.Models;
-using System;
-using System.Collections.Generic;
+﻿using CovidTracker.Function.Clients;
+using CovidTracker.Function.Clients.Models;
+using CovidTracker.Function.Models;
 using System.IO;
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 
-namespace CovidTracker.Azure.Function.Logic
+namespace CovidTracker.Function.Logic
 {
     public class AzurePackageStreamer
     {
@@ -36,7 +33,7 @@ namespace CovidTracker.Azure.Function.Logic
 
         private async Task<AzureBuild> GetLatestBuildAsync(string organization, string project)
         {
-            AzureBuilds builds = await _buildClient.GetBuildsAsync(organization, project, "completed", 1);
+            AzureBuilds builds = await _buildClient.GetBuildsAsync(organization, project, "completed", "succeeded", 1);
 
             if (builds.Count == 0)
             {

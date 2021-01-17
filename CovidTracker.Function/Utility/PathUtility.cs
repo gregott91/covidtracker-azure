@@ -1,11 +1,11 @@
-﻿using CovidTracker.Azure.Function.Models;
+﻿using CovidTracker.Function.Models;
 using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Text;
 
-namespace CovidTracker.Azure.Function.Utility
+namespace CovidTracker.Function.Utility
 {
     public class PathUtility
     {

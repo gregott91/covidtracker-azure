@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace CovidTracker.Azure.Function.Models
+namespace CovidTracker.Function.Models
 {
     public class CovidTrackerException : Exception
     {

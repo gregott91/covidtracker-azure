@@ -1,9 +1,9 @@
-﻿using CovidTracker.Azure.Function.Models;
+﻿using CovidTracker.Function.Models;
 using System.IO;
 using System.Net.Http;
 using System.Threading.Tasks;
 
-namespace CovidTracker.Azure.Function.Clients
+namespace CovidTracker.Function.Clients
 {
     public class HttpClientWrapper
     {

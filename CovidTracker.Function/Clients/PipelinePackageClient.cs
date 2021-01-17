@@ -1,8 +1,8 @@
-﻿using CovidTracker.Azure.Function.Clients.Models;
-using CovidTracker.Azure.Function.Utility;
+﻿using CovidTracker.Function.Clients.Models;
+using CovidTracker.Function.Utility;
 using System.Threading.Tasks;
 
-namespace CovidTracker.Azure.Function.Clients
+namespace CovidTracker.Function.Clients
 {
     public class PipelinePackageClient
     {
