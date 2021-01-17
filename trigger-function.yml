@@ -7,5 +7,5 @@ jobs:
   - task: AzureFunction@1
     inputs:
       function: https://covidtrackergenerator.azurewebsites.net/api/SiteGeneratorHttpTrigger
-      key: '$(functionkey2)'
+      key: '$(functionkey)'
       method: 'GET'
