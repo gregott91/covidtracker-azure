@@ -9,25 +9,29 @@ namespace CovidTracker.Function.Clients
 {
     public class CommandClient
     {
-        public async Task RunAsync(string command, string arguments, string workingDirectory = null)
+        public async Task RunAsync(ProcessConfig config, ILoggingClient logger)
         {
             var start = new ProcessStartInfo();
-            if (!string.IsNullOrEmpty(workingDirectory))
+            if (!string.IsNullOrEmpty(config.WorkingDirectory))
             {
-                start.WorkingDirectory = workingDirectory;
+                start.WorkingDirectory = config.WorkingDirectory;
             }
 
-            start.Arguments = arguments;
-            start.FileName = command;
+            start.Arguments = config.Arguments;
+            start.FileName = config.Command;
             start.WindowStyle = ProcessWindowStyle.Hidden;
             start.CreateNoWindow = true;
 
             using Process proc = Process.Start(start);
             await WaitForExitAsync(proc);
 
+
+            logger.LogInfo($"Recieved StdOut from {config.Command}: {proc.StandardOutput.ReadToEnd()}"); 
+            logger.LogError($"Recieved StdErr from {config.Command}: {proc.StandardError.ReadToEnd()}");
+
             if (proc.ExitCode != 0)
             {
-                throw new CommandException($"Unable to run {command} command {arguments}. Exit code was {proc.ExitCode}", proc.ExitCode);
+                throw new CommandException($"Unable to run {config.Command} command {config.Arguments}. Exit code was {proc.ExitCode}", proc.ExitCode);
             }
         }
 

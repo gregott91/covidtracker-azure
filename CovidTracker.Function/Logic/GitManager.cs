@@ -16,19 +16,19 @@ namespace CovidTracker.Function.Logic
             _gitClient = gitClient;
         }
 
-        public async Task CloneRepoAsync(string repoPath, string cloneUrl)
+        public async Task CloneRepoAsync(string repoPath, string cloneUrl, ILoggingClient logger)
         {
-            await _gitClient.CloneAsync(repoPath, cloneUrl);
+            await _gitClient.CloneAsync(repoPath, cloneUrl, logger);
         }
 
         public async Task CommitFileAsync(string repoPath, string fileName, string commitMessage, ILoggingClient logger)
         {
-            await _gitClient.StageAsync(repoPath, fileName);
-            await _gitClient.CommitAsync(repoPath, commitMessage);
+            await _gitClient.StageAsync(repoPath, fileName, logger);
+            await _gitClient.CommitAsync(repoPath, commitMessage, logger);
 
             try
             {
-                await _gitClient.PushAsync(repoPath);
+                await _gitClient.PushAsync(repoPath, logger);
             }
             catch (CommandException ex)
             {

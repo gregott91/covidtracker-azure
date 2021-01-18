@@ -48,7 +48,7 @@ namespace CovidTracker.Function.Logic
                     logger.LogInfo("TODOGREG GOT THING " + outputFile);
                 }
 
-                await _siteGenerator.GenerateSiteAsync(file, directoryPath, outputFileName);
+                await _siteGenerator.GenerateSiteAsync(file, directoryPath, outputFileName, logger);
 
                 await _pagesUploader.UploadNewFileAsync(gitConfig, directoryPath, outputFileName, logger);
             }

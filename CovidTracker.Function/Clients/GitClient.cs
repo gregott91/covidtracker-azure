@@ -17,29 +17,34 @@ namespace CovidTracker.Function.Clients
             _commandClient = commandClient;
         }
 
-        public async Task CloneAsync(string path, string cloneURL)
+        public async Task CloneAsync(string path, string cloneURL, ILoggingClient logger)
         {
-            await RunGitCommandAsync(path, $"clone {cloneURL}");
+            await RunGitCommandAsync(path, $"clone {cloneURL}", logger);
         }
 
-        public async Task StageAsync(string path, string filePath)
+        public async Task StageAsync(string path, string filePath, ILoggingClient logger)
         {
-            await RunGitCommandAsync(path, $"add {filePath}");
+            await RunGitCommandAsync(path, $"add {filePath}", logger);
         }
 
-        public async Task CommitAsync(string path, string commitMessage)
+        public async Task CommitAsync(string path, string commitMessage, ILoggingClient logger)
         {
-            await RunGitCommandAsync(path, $"commit -m \"{commitMessage}\"");
+            await RunGitCommandAsync(path, $"commit -m \"{commitMessage}\"", logger);
         }
 
-        public async Task PushAsync(string path)
+        public async Task PushAsync(string path, ILoggingClient logger)
         {
-            await RunGitCommandAsync(path, $"push");
+            await RunGitCommandAsync(path, $"push", logger);
         }
 
-        private async Task RunGitCommandAsync(string path, string command)
+        private async Task RunGitCommandAsync(string path, string command, ILoggingClient logger)
         {
-            await _commandClient.RunAsync("git", command, path);
+            await _commandClient.RunAsync(new ProcessConfig()
+            {
+                Command = "git",
+                Arguments = command,
+                WorkingDirectory = path
+            }, logger);
         }
     }
 }
