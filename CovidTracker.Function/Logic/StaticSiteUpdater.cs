@@ -9,26 +9,26 @@ using System.Threading.Tasks;
 
 namespace CovidTracker.Function.Logic
 {
-    public class MasterGenerator
+    public class StaticSiteUpdater
     {
         private AzurePackageCoordinator _packageCoordinator;
-        private GitManager _gitManager;
-        private CommandClient _exeClient;
+        private StaticSiteGenerator _siteGenerator;
         private FileSystemClient _fileSystemClient;
+        private GitPagesUploader _pagesUploader;
 
-        public MasterGenerator(
+        public StaticSiteUpdater(
             AzurePackageCoordinator packageCoordinator,
-            GitManager gitManager,
-            CommandClient exeClient,
+            StaticSiteGenerator siteGenerator,
+            GitPagesUploader pagesUploader,
             FileSystemClient fileSystemClient)
         {
             _packageCoordinator = packageCoordinator;
-            _gitManager = gitManager;
-            _exeClient = exeClient;
+            _siteGenerator = siteGenerator;
             _fileSystemClient = fileSystemClient;
+            _pagesUploader = pagesUploader;
         }
 
-        public async Task HandleGenerationAsync(
+        public async Task GenerateAndUploadAsync(
             AzureArtifactConfiguration artifactConfig,
             GitConfig gitConfig,
             string outputFileName,
@@ -42,15 +42,9 @@ namespace CovidTracker.Function.Logic
             {
                 string file = await _packageCoordinator.DownloadPackageAsync(artifactConfig, directoryPath, logger);
 
-                await _exeClient.RunAsync(file, Path.Combine(directoryPath, outputFileName));
+                await _siteGenerator.GenerateSiteAsync(file, directoryPath, outputFileName);
 
-                string gitPath = _fileSystemClient.CreateDirectory(directoryPath, "git");
-                await _gitManager.CloneRepoAsync(gitPath, gitConfig.CloneUrl);
-
-                string localRepoPath = Path.Combine(gitPath, gitConfig.RepoName);
-
-                _fileSystemClient.CopyFile(directoryPath, localRepoPath, outputFileName);
-                await _gitManager.CommitFileAsync(localRepoPath, outputFileName, "Updating HTML", logger);
+                await _pagesUploader.UploadNewFileAsync(gitConfig, directoryPath, outputFileName, logger);
             }
             finally
             {

@@ -13,7 +13,7 @@ namespace CovidTracker.Function
         {
             builder.Services.AddTransient((s) =>
             {
-                return new MasterGenerator(
+                return new StaticSiteUpdater(
                     new AzurePackageCoordinator(
                         new AzurePackageStreamer(
                             new PipelinePackageClient(
@@ -28,8 +28,12 @@ namespace CovidTracker.Function
                         new ZipFileDownloader(new FileSystemClient()),
                         new PathUtility(),
                         new FileSystemClient()),
-                    new GitManager(new GitClient(new CommandClient())),
-                    new CommandClient(),
+                    new StaticSiteGenerator(new CommandClient(), new FileSystemClient()),
+                    new GitPagesUploader(
+                        new GitManager(
+                            new GitClient(new CommandClient()
+                        )),
+                        new FileSystemClient()),
                     new FileSystemClient());
             });
         }

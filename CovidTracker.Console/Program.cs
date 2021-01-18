@@ -17,7 +17,7 @@ namespace CovidTracker.Console
 
         static async Task RunAsync()
         {
-            var generator = new MasterGenerator(
+            var generator = new StaticSiteUpdater(
                     new AzurePackageCoordinator(
                         new AzurePackageStreamer(
                             new PipelinePackageClient(
@@ -32,11 +32,15 @@ namespace CovidTracker.Console
                         new ZipFileDownloader(new FileSystemClient()),
                         new PathUtility(),
                         new FileSystemClient()),
-                    new GitManager(new GitClient(new CommandClient())),
-                    new CommandClient(),
+                    new StaticSiteGenerator(new CommandClient(), new FileSystemClient()),
+                    new GitPagesUploader(
+                        new GitManager(
+                            new GitClient(new CommandClient()
+                        )),
+                        new FileSystemClient()),
                     new FileSystemClient());
 
-            await generator.HandleGenerationAsync(
+            await generator.GenerateAndUploadAsync(
                 new AzureArtifactConfiguration()
                 {
                     Organzation = "gregoryott2345",
@@ -51,7 +55,7 @@ namespace CovidTracker.Console
                     RepoName = "CovidTracker"
                 },
                 "index.html",
-                        "D:\\temp",
+                "D:\\temp",
                 new ConsoleLoggingClient());
         }
     }

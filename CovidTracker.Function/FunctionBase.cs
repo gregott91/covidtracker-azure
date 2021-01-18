@@ -13,16 +13,16 @@ namespace CovidTracker.Function
 {
     public abstract class FunctionBase
     {
-        private readonly MasterGenerator _generator;
+        private readonly StaticSiteUpdater _generator;
 
-        public FunctionBase(MasterGenerator generator)
+        public FunctionBase(StaticSiteUpdater generator)
         {
             this._generator = generator;
         }
 
         protected async Task RunAsync(ILogger logger)
         {
-            await _generator.HandleGenerationAsync(
+            await _generator.GenerateAndUploadAsync(
                 new AzureArtifactConfiguration()
                 {
                     Organzation = "gregoryott2345",

@@ -43,5 +43,15 @@ namespace CovidTracker.Function.Clients
         {
             Directory.Delete(directory, true);
         }
+
+        public string GetFile(string parentDirectory, string fileName)
+        {
+            return Path.Combine(parentDirectory, fileName);
+        }
+
+        public string GetDirectory(string parentDirectory, string directory)
+        {
+            return Path.Combine(parentDirectory, directory);
+        }
     }
 }
