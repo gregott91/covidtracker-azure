@@ -29,7 +29,7 @@ namespace CovidTracker.Function.Logic
             ILoggingClient logger)
         {
             string gitPath = _fileSystemClient.CreateDirectory(parentDirectory, "git");
-            await _gitManager.CloneRepoAsync(gitPath, gitConfig.CloneUrl);
+            await _gitManager.CloneRepoAsync(gitPath, gitConfig.CloneUrl, logger);
 
             string localRepoPath = _fileSystemClient.GetDirectory(gitPath, gitConfig.RepoName);
 
