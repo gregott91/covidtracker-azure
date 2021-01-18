@@ -21,10 +21,11 @@ namespace CovidTracker.Function.Clients
             start.FileName = config.Command;
             start.WindowStyle = ProcessWindowStyle.Hidden;
             start.CreateNoWindow = true;
+            start.RedirectStandardOutput = true;
+            start.RedirectStandardError = true;
 
             using Process proc = Process.Start(start);
             await WaitForExitAsync(proc);
-
 
             logger.LogInfo($"Recieved StdOut from {config.Command}: {proc.StandardOutput.ReadToEnd()}"); 
             logger.LogError($"Recieved StdErr from {config.Command}: {proc.StandardError.ReadToEnd()}");
