@@ -42,6 +42,12 @@ namespace CovidTracker.Function.Logic
             {
                 string file = await _packageCoordinator.DownloadPackageAsync(artifactConfig, directoryPath, logger);
 
+                var files = Directory.GetFiles(Directory.GetParent(file).FullName);
+                foreach(var outputFile in files)
+                {
+                    logger.LogInfo("TODOGREG GOT THING " + outputFile);
+                }
+
                 await _siteGenerator.GenerateSiteAsync(file, directoryPath, outputFileName);
 
                 await _pagesUploader.UploadNewFileAsync(gitConfig, directoryPath, outputFileName, logger);
