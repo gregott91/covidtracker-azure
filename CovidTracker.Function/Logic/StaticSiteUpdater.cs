@@ -41,6 +41,8 @@ namespace CovidTracker.Function.Logic
             string directoryPath = _fileSystemClient.CreateRandomDirectory(path);
             logger.LogInfo($"Working directory: {directoryPath}");
 
+            logger.LogError("TODOGREG " + gitConfig.Password.Length);
+
             try
             {
                 string file = await _packageCoordinator.DownloadPackageAsync(artifactConfig, directoryPath, logger);
