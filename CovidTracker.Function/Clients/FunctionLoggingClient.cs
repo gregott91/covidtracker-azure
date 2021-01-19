@@ -29,5 +29,15 @@ namespace CovidTracker.Function.Clients
         {
             _log.LogError(message);
         }
+
+        public void LogWarning(string message)
+        {
+            _log.LogWarning(message);
+        }
+
+        public void LogWarning(Exception ex, string message)
+        {
+            _log.LogWarning(ex, message);
+        }
     }
 }

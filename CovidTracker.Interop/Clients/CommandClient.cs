@@ -28,8 +28,8 @@ namespace CovidTracker.Interop.Clients
             using Process proc = Process.Start(start);
             await WaitForExitAsync(proc);
 
-            logger.LogInfo($"Recieved StdOut from {config.Command}: {proc.StandardOutput.ReadToEnd()}");
-            logger.LogError($"Recieved StdErr from {config.Command}: {proc.StandardError.ReadToEnd()}");
+            LogOutput("StdOut", config.Command, proc.StandardOutput.ReadToEnd(), logger.LogInfo);
+            LogOutput("StdErr", config.Command, proc.StandardError.ReadToEnd(), logger.LogInfo);
 
             if (proc.ExitCode != 0)
             {
@@ -46,6 +46,14 @@ namespace CovidTracker.Interop.Clients
             process.Exited += (sender, args) => tcs.TrySetResult(null);
 
             return process.HasExited ? Task.CompletedTask : tcs.Task;
+        }
+
+        private void LogOutput(string outputType, string command, string output, Action<string> logAction)
+        {
+            if (!string.IsNullOrWhiteSpace(output))
+            {
+                logAction($"Recieved {outputType} from {command}: {output}");
+            }
         }
     }
 }

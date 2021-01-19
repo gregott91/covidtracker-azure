@@ -51,7 +51,14 @@ namespace CovidTracker.Function.Logic
             }
             finally
             {
-                _fileSystemClient.DeleteDirectory(directoryPath);
+                try
+                {
+                    _fileSystemClient.DeleteDirectory(directoryPath);
+                }
+                catch (Exception ex)
+                {
+                    logger.LogWarning(ex, $"Unable to delete directory {directoryPath}");
+                }
             }
         }
     }

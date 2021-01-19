@@ -92,7 +92,7 @@ namespace CovidTracker.Git.Logic
             {
                 if (ex.ExitCode == 1)
                 {
-                    _logger.LogError("Unable to push - exit code is 1. Likely no changes to push.");
+                    _logger.LogWarning("Unable to push - exit code is 1. Likely no changes to push.");
                 }
                 else
                 {
@@ -116,7 +116,7 @@ namespace CovidTracker.Git.Logic
             }
             catch (Exception ex)
             {
-                _logger.LogError(ex, "Unable to delete local copy of repo");
+                _logger.LogWarning(ex, "Unable to delete local copy of repo");
             }
 
             _initialized = false;

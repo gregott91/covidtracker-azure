@@ -8,6 +8,10 @@ namespace CovidTracker.Logging
     {
         public void LogInfo(string message);
 
+        public void LogWarning(string message);
+
+        public void LogWarning(Exception ex, string message);
+
         public void LogError(Exception ex, string message);
 
         public void LogError(string message);

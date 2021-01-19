@@ -20,5 +20,15 @@ namespace CovidTracker.Logging
         {
             Console.WriteLine($"Error: {message}");
         }
+
+        public void LogWarning(string message)
+        {
+            Console.WriteLine($"Warning: {message}");
+        }
+
+        public void LogWarning(Exception ex, string message)
+        {
+            Console.WriteLine($"Warning: {message}. {ex.StackTrace}");
+        }
     }
 }
