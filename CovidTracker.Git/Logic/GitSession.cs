@@ -56,6 +56,8 @@ namespace CovidTracker.Git.Logic
                     _logger);
 
                 await _client.SetOrigin(_repoPath, authenticatedUrl, _logger);
+                await _client.SetUserProperty(cloneLocation, "email", config.Email, _logger);
+                await _client.SetUserProperty(cloneLocation, "name", config.Username, _logger);
             }
             else
             {

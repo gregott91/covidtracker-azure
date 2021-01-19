@@ -25,6 +25,11 @@ namespace CovidTracker.Git.Clients
             await RunGitCommandAsync(path, $"remote set-url origin {originUrl}", logger);
         }
 
+        public async Task SetUserProperty(string path, string property, string value, ILoggingClient logger)
+        {
+            await RunGitCommandAsync(path, $"config user.{property} \"{value}\"", logger);
+        }
+
         public async Task StageAsync(string path, string filePath, ILoggingClient logger)
         {
             await RunGitCommandAsync(path, $"add {filePath}", logger);

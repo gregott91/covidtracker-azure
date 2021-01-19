@@ -37,6 +37,7 @@ namespace CovidTracker.Function
                 {
                     RepoName = "CovidTracker",
                     Username = "gregott91",
+                    Email = "gregoryott2345@gmail.com",
                     Password = Environment.GetEnvironmentVariable("githubtoken", EnvironmentVariableTarget.Process),
                     RepoGitInstallation = "github",
                     RepoOrganization = "gregott91",
