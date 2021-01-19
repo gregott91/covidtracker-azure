@@ -9,5 +9,9 @@ namespace CovidTracker.Function.Models
         public string CloneUrl { get; set; }
 
         public string RepoName { get; set; }
+
+        public string Username { get; set; }
+
+        public string Password { get; set; }
     }
 }

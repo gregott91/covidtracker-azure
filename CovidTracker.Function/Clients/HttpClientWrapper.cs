@@ -1,4 +1,5 @@
 ﻿using CovidTracker.Function.Models;
+using CovidTracker.Logging;
 using System.IO;
 using System.Net.Http;
 using System.Threading.Tasks;

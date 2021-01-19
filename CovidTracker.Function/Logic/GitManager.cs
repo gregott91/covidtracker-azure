@@ -1,5 +1,7 @@
 ﻿using CovidTracker.Function.Clients;
 using CovidTracker.Function.Models;
+using CovidTracker.Git.Models;
+using CovidTracker.Logging;
 using System;
 using System.Collections.Generic;
 using System.Text;

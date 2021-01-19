@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace CovidTracker.Function.Clients
+namespace CovidTracker.Logging
 {
     public class ConsoleLoggingClient : ILoggingClient
     {

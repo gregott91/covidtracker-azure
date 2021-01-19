@@ -1,9 +1,7 @@
 ﻿using CovidTracker.Function.Clients;
-using CovidTracker.Function.Models;
-using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Text;
+using CovidTracker.Git.Clients;
+using CovidTracker.Git.Models;
+using CovidTracker.Logging;
 using System.Threading.Tasks;
 
 namespace CovidTracker.Function.Logic

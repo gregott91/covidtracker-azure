@@ -1,11 +1,12 @@
-﻿using CovidTracker.Function.Models;
+﻿using CovidTracker.Git.Models;
+using CovidTracker.Logging;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace CovidTracker.Function.Clients
+namespace CovidTracker.Git.Clients
 {
     public class CommandClient
     {
@@ -27,7 +28,7 @@ namespace CovidTracker.Function.Clients
             using Process proc = Process.Start(start);
             await WaitForExitAsync(proc);
 
-            logger.LogInfo($"Recieved StdOut from {config.Command}: {proc.StandardOutput.ReadToEnd()}"); 
+            logger.LogInfo($"Recieved StdOut from {config.Command}: {proc.StandardOutput.ReadToEnd()}");
             logger.LogError($"Recieved StdErr from {config.Command}: {proc.StandardError.ReadToEnd()}");
 
             if (proc.ExitCode != 0)

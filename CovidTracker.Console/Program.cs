@@ -3,6 +3,8 @@ using CovidTracker.Function.Clients.Models;
 using CovidTracker.Function.Logic;
 using CovidTracker.Function.Models;
 using CovidTracker.Function.Utility;
+using CovidTracker.Git.Clients;
+using CovidTracker.Logging;
 using System;
 using System.Threading.Tasks;
 

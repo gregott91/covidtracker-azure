@@ -1,6 +1,7 @@
 ﻿using CovidTracker.Function.Clients;
 using CovidTracker.Function.Logic;
 using CovidTracker.Function.Utility;
+using CovidTracker.Git.Clients;
 using Microsoft.Azure.Functions.Extensions.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection;
 

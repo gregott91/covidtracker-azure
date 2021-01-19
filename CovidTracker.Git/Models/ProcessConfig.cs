@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace CovidTracker.Function.Models
+namespace CovidTracker.Git.Models
 {
     public class ProcessConfig
     {

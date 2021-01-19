@@ -2,6 +2,7 @@
 using CovidTracker.Function.Clients.Models;
 using CovidTracker.Function.Models;
 using CovidTracker.Function.Utility;
+using CovidTracker.Logging;
 using System;
 using System.Collections.Generic;
 using System.IO;

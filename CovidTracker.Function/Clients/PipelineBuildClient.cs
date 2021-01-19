@@ -1,5 +1,6 @@
 ﻿using CovidTracker.Function.Clients.Models;
 using CovidTracker.Function.Utility;
+using CovidTracker.Logging;
 using System.Threading.Tasks;
 
 namespace CovidTracker.Function.Clients
@@ -20,7 +21,14 @@ namespace CovidTracker.Function.Clients
             _jsonClient = jsonClient;
         }
 
-        public async Task<AzureBuilds> GetBuildsAsync(string organization, string project, string status, string result, string definitionID, int numToReturn, ILoggingClient logger)
+        public async Task<AzureBuilds> GetBuildsAsync(
+            string organization, 
+            string project, 
+            string status, 
+            string result, 
+            string definitionID, 
+            int numToReturn, 
+            ILoggingClient logger)
         {
             string url = _urlGenerator.GenerateBuildUrl(organization, project, status, result, definitionID, numToReturn.ToString());
             using var stream = await _httpClient.GetAsync(url, logger);

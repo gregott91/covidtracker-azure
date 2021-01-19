@@ -1,4 +1,5 @@
 ﻿using CovidTracker.Function.Clients;
+using CovidTracker.Logging;
 using System;
 using System.IO;
 using System.IO.Compression;
