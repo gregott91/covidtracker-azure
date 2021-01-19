@@ -75,11 +75,25 @@ namespace CovidTracker.Git.Logic
             await _client.StageAsync(_repoPath, fileName, _logger);
         }
 
-        public async Task CommitAsync(string commitMessage)
+        public async Task SafeCommitAsync(string commitMessage)
         {
             Validate();
 
-            await _client.CommitAsync(_repoPath, commitMessage, _logger);
+            try
+            {
+                await _client.CommitAsync(_repoPath, commitMessage, _logger);
+            }
+            catch (CommandException ex)
+            {
+                if (ex.ExitCode == 128)
+                {
+                    _logger.LogWarning("Unable to commit - exit code is 128. Likely no changes to commit.");
+                }
+                else
+                {
+                    throw;
+                }
+            }
         }
 
         public async Task SafePushAsync()
