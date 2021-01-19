@@ -1,9 +1,10 @@
-﻿using Microsoft.Extensions.Logging;
+﻿using CovidTracker.Logging;
+using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace CovidTracker.Logging
+namespace CovidTracker.Function.Clients
 {
     public class FunctionLoggingClient : ILoggingClient
     {
