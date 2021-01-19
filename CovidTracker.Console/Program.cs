@@ -4,6 +4,8 @@ using CovidTracker.Function.Logic;
 using CovidTracker.Function.Models;
 using CovidTracker.Function.Utility;
 using CovidTracker.Git.Clients;
+using CovidTracker.Git.Models;
+using CovidTracker.Interop.Clients;
 using CovidTracker.Logging;
 using System;
 using System.Threading.Tasks;
@@ -32,14 +34,9 @@ namespace CovidTracker.Console
                                 new JsonClient()),
                             new HttpClientWrapper()),
                         new ZipFileDownloader(new FileSystemClient()),
-                        new PathUtility(),
-                        new FileSystemClient()),
+                        new PathUtility()),
                     new StaticSiteGenerator(new CommandClient(), new FileSystemClient()),
-                    new GitPagesUploader(
-                        new GitManager(
-                            new GitClient(new CommandClient()
-                        )),
-                        new FileSystemClient()),
+                    new GitPagesUploader(new FileSystemClient()),
                     new FileSystemClient());
 
             await generator.GenerateAndUploadAsync(
@@ -51,10 +48,12 @@ namespace CovidTracker.Console
                     Executable = "covidtracker",
                     DefinitionID = "1"
                 },
-                new GitConfig()
+                new GitSessionConfig()
                 {
-                    CloneUrl = "https://github.com/gregott91/CovidTracker.git",
-                    RepoName = "CovidTracker"
+                    RepoName = "CovidTracker",
+                    RepoGitInstallation = "github",
+                    RepoOrganization = "gregott91",
+                    Authenticate = false,
                 },
                 "index.html",
                 "D:\\temp",

@@ -1,6 +1,8 @@
 ﻿using CovidTracker.Function.Clients;
 using CovidTracker.Function.Clients.Models;
 using CovidTracker.Function.Models;
+using CovidTracker.Git.Models;
+using CovidTracker.Interop.Clients;
 using CovidTracker.Logging;
 using System;
 using System.Collections.Generic;
@@ -31,7 +33,7 @@ namespace CovidTracker.Function.Logic
 
         public async Task GenerateAndUploadAsync(
             AzureArtifactConfiguration artifactConfig,
-            GitConfig gitConfig,
+            GitSessionConfig gitConfig,
             string outputFileName,
             string path,
             ILoggingClient logger)

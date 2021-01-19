@@ -5,7 +5,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\CovidTracker.Interop\CovidTracker.Interop.csproj" />
     <ProjectReference Include="..\CovidTracker.Logging\CovidTracker.Logging.csproj" />
   </ItemGroup>
 

@@ -2,6 +2,7 @@
 using CovidTracker.Function.Logic;
 using CovidTracker.Function.Utility;
 using CovidTracker.Git.Clients;
+using CovidTracker.Interop.Clients;
 using Microsoft.Azure.Functions.Extensions.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection;
 
@@ -27,14 +28,9 @@ namespace CovidTracker.Function
                                 new JsonClient()),
                             new HttpClientWrapper()),
                         new ZipFileDownloader(new FileSystemClient()),
-                        new PathUtility(),
-                        new FileSystemClient()),
+                        new PathUtility()),
                     new StaticSiteGenerator(new CommandClient(), new FileSystemClient()),
-                    new GitPagesUploader(
-                        new GitManager(
-                            new GitClient(new CommandClient()
-                        )),
-                        new FileSystemClient()),
+                    new GitPagesUploader(new FileSystemClient()),
                     new FileSystemClient());
             });
         }

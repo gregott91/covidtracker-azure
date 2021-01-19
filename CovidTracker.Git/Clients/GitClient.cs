@@ -1,15 +1,10 @@
-﻿using CovidTracker.Function.Models;
-using CovidTracker.Git.Clients;
-using CovidTracker.Git.Models;
+﻿using CovidTracker.Git.Models;
+using CovidTracker.Interop.Clients;
+using CovidTracker.Interop.Models;
 using CovidTracker.Logging;
-using System;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.IO;
-using System.Text;
 using System.Threading.Tasks;
 
-namespace CovidTracker.Function.Clients
+namespace CovidTracker.Git.Clients
 {
     public class GitClient
     {
@@ -22,25 +17,30 @@ namespace CovidTracker.Function.Clients
 
         public async Task CloneAsync(string path, string cloneURL, ILoggingClient logger)
         {
-            await RunGitCommandAsync("asd", "asd", path, $"clone {cloneURL}", logger);
+            await RunGitCommandAsync(path, $"clone {cloneURL}", logger);
+        }
+
+        public async Task SetOrigin(string path, string originUrl, ILoggingClient logger)
+        {
+            await RunGitCommandAsync(path, $"remote set-url origin {originUrl}", logger);
         }
 
         public async Task StageAsync(string path, string filePath, ILoggingClient logger)
         {
-            await RunGitCommandAsync("asd", "asd", path, $"add {filePath}", logger);
+            await RunGitCommandAsync(path, $"add {filePath}", logger);
         }
 
         public async Task CommitAsync(string path, string commitMessage, ILoggingClient logger)
         {
-            await RunGitCommandAsync("asd", "asd", path, $"commit -m \"{commitMessage}\"", logger);
+            await RunGitCommandAsync(path, $"commit -m \"{commitMessage}\"", logger);
         }
 
         public async Task PushAsync(string path, ILoggingClient logger)
         {
-            await RunGitCommandAsync("asd", "asd", path, $"push", logger);
+            await RunGitCommandAsync(path, $"push", logger);
         }
 
-        private async Task RunGitCommandAsync(string username, string password, string path, string command, ILoggingClient logger)
+        private async Task RunGitCommandAsync(string path, string command, ILoggingClient logger)
         {
             await _commandClient.RunAsync(new ProcessConfig()
             {

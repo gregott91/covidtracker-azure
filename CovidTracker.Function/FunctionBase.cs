@@ -2,6 +2,7 @@
 using CovidTracker.Function.Clients.Models;
 using CovidTracker.Function.Logic;
 using CovidTracker.Function.Models;
+using CovidTracker.Git.Models;
 using CovidTracker.Logging;
 using Microsoft.Extensions.Logging;
 using System;
@@ -32,12 +33,14 @@ namespace CovidTracker.Function
                     Executable = "covidtracker",
                     DefinitionID = "1"
                 },
-                new GitConfig()
+                new GitSessionConfig()
                 {
-                    CloneUrl = "https://github.com/gregott91/CovidTracker.git",
                     RepoName = "CovidTracker",
                     Username = "gregott91",
-                    Password = Environment.GetEnvironmentVariable("githubtoken", EnvironmentVariableTarget.Process)
+                    Password = Environment.GetEnvironmentVariable("githubtoken", EnvironmentVariableTarget.Process),
+                    RepoGitInstallation = "github",
+                    RepoOrganization = "gregott91",
+                    Authenticate = true,
                 },
                 "index.html",
                 "D:\\local\\temp",

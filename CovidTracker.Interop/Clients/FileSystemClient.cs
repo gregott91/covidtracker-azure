@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Text;
 
-namespace CovidTracker.Function.Clients
+namespace CovidTracker.Interop.Clients
 {
     public class FileSystemClient
     {
@@ -52,6 +52,16 @@ namespace CovidTracker.Function.Clients
         public string GetDirectory(string parentDirectory, string directory)
         {
             return Path.Combine(parentDirectory, directory);
+        }
+
+        public string GetFileNameFromPath(string filePath)
+        {
+            return Path.GetFileName(filePath);
+        }
+
+        public string GetFileDirectory(string filePath)
+        {
+            return Path.GetDirectoryName(filePath);
         }
     }
 }

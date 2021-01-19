@@ -1,4 +1,4 @@
-﻿using CovidTracker.Git.Models;
+﻿using CovidTracker.Interop.Models;
 using CovidTracker.Logging;
 using System;
 using System.Collections.Generic;
@@ -6,7 +6,7 @@ using System.Diagnostics;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace CovidTracker.Git.Clients
+namespace CovidTracker.Interop.Clients
 {
     public class CommandClient
     {

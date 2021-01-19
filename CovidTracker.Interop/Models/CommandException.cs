@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace CovidTracker.Git.Models
+namespace CovidTracker.Interop.Models
 {
     public class CommandException : Exception
     {

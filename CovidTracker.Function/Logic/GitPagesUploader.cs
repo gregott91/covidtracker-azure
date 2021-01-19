@@ -1,6 +1,9 @@
 ﻿using CovidTracker.Function.Clients;
 using CovidTracker.Function.Clients.Models;
 using CovidTracker.Function.Models;
+using CovidTracker.Git.Logic;
+using CovidTracker.Git.Models;
+using CovidTracker.Interop.Clients;
 using CovidTracker.Logging;
 using System;
 using System.Collections.Generic;
@@ -12,30 +15,27 @@ namespace CovidTracker.Function.Logic
 {
     public class GitPagesUploader
     {
-        private GitManager _gitManager;
-        private FileSystemClient _fileSystemClient;
+        private FileSystemClient _fileSystem;
 
-        public GitPagesUploader(
-            GitManager gitManager,
-            FileSystemClient fileSystemClient)
+        public GitPagesUploader(FileSystemClient fileSystem)
         {
-            _gitManager = gitManager;
-            _fileSystemClient = fileSystemClient;
+            _fileSystem = fileSystem;
         }
 
         public async Task UploadNewFileAsync(
-            GitConfig gitConfig,
-            string parentDirectory,
-            string outputFileName,
+            GitSessionConfig gitConfig,
+            string fileLocation,
+            string fileName,
             ILoggingClient logger)
         {
-            string gitPath = _fileSystemClient.CreateDirectory(parentDirectory, "git");
-            await _gitManager.CloneRepoAsync(gitPath, gitConfig.CloneUrl, logger);
+            string cloneDirectory = _fileSystem.CreateRandomDirectory(fileLocation);
 
-            string localRepoPath = _fileSystemClient.GetDirectory(gitPath, gitConfig.RepoName);
-
-            _fileSystemClient.CopyFile(parentDirectory, localRepoPath, outputFileName);
-            await _gitManager.CommitFileAsync(localRepoPath, outputFileName, "Updating HTML", logger);
+            using var session = await GitSessionFactory.OpenSessionAsync(gitConfig, cloneDirectory, logger);
+            
+            _fileSystem.CopyFile(fileLocation, session.GetRepoLocation(), fileName);
+            await session.StageAsync(fileName);
+            await session.CommitAsync("Updating HTML");
+            await session.SafePushAsync();
         }
     }
 }

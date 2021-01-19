@@ -2,6 +2,7 @@
 using CovidTracker.Function.Clients.Models;
 using CovidTracker.Function.Models;
 using CovidTracker.Function.Utility;
+using CovidTracker.Interop.Clients;
 using CovidTracker.Logging;
 using System;
 using System.Collections.Generic;
@@ -16,18 +17,15 @@ namespace CovidTracker.Function.Logic
         private AzurePackageStreamer _packageStreamer;
         private ZipFileDownloader _downloader;
         private PathUtility _pathUtil;
-        private FileSystemClient _fileSystem;
 
         public AzurePackageCoordinator(
             AzurePackageStreamer packageStreamer,
             ZipFileDownloader fileDownloader,
-            PathUtility pathUtil,
-            FileSystemClient fileSystem)
+            PathUtility pathUtil)
         {
             _packageStreamer = packageStreamer;
             _downloader = fileDownloader;
             _pathUtil = pathUtil;
-            _fileSystem = fileSystem;
         }
 
         public async Task<string> DownloadPackageAsync(AzureArtifactConfiguration config, string directoryPath, ILoggingClient logger)
