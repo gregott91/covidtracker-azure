@@ -19,7 +19,7 @@ namespace CovidTracker.Function.Logic
             _fileSystemClient = fileSystemClient;
         }
 
-        public async Task<string> GenerateSiteAsync(
+        public async Task<string> GenerateSiteDataAsync(
             string exeFile,
             string directoryPath,
             string outputFileName,

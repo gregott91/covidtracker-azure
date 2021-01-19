@@ -43,7 +43,7 @@ namespace CovidTracker.Function
                     RepoOrganization = "gregott91",
                     Authenticate = true,
                 },
-                "index.html",
+                "coviddata.json",
                 "D:\\local\\temp",
                 new FunctionLoggingClient(logger));
         }

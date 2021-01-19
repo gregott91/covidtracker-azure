@@ -34,7 +34,7 @@ namespace CovidTracker.Function.Logic
             
             _fileSystem.CopyFile(fileLocation, session.GetRepoLocation(), fileName);
             await session.StageAsync(fileName);
-            await session.SafeCommitAsync("Updating HTML");
+            await session.SafeCommitAsync("Updating JSON");
             await session.SafePushAsync();
         }
     }

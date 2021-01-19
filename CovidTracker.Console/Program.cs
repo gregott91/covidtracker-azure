@@ -55,7 +55,7 @@ namespace CovidTracker.Console
                     RepoOrganization = "gregott91",
                     Authenticate = false,
                 },
-                "index.html",
+                "coviddata.json",
                 "D:\\temp",
                 new ConsoleLoggingClient());
         }
