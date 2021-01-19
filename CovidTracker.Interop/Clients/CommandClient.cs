@@ -28,12 +28,13 @@ namespace CovidTracker.Interop.Clients
             using Process proc = Process.Start(start);
             await WaitForExitAsync(proc);
 
+            string stderr = proc.StandardError.ReadToEnd();
             LogOutput("StdOut", config.Command, proc.StandardOutput.ReadToEnd(), logger.LogInfo);
-            LogOutput("StdErr", config.Command, proc.StandardError.ReadToEnd(), logger.LogInfo);
+            LogOutput("StdErr", config.Command, stderr, logger.LogInfo);
 
             if (proc.ExitCode != 0)
             {
-                throw new CommandException($"Unable to run {config.Command} command {config.Arguments}. Exit code was {proc.ExitCode}", proc.ExitCode);
+                throw new CommandException($"Unable to run {config.Command} command {config.Arguments}. Exit code was {proc.ExitCode}. StdErr: {stderr}", proc.ExitCode);
             }
         }
 

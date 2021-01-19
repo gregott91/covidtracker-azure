@@ -85,14 +85,7 @@ namespace CovidTracker.Git.Logic
             }
             catch (CommandException ex)
             {
-                if (ex.ExitCode == 128)
-                {
-                    _logger.LogWarning("Unable to commit - exit code is 128. Likely no changes to commit.");
-                }
-                else
-                {
-                    throw;
-                }
+                _logger.LogWarning(ex, "Unable to commit. Likely no changes to commit.");
             }
         }
 
@@ -104,14 +97,7 @@ namespace CovidTracker.Git.Logic
             }
             catch (CommandException ex)
             {
-                if (ex.ExitCode == 1)
-                {
-                    _logger.LogWarning("Unable to push - exit code is 1. Likely no changes to push.");
-                }
-                else
-                {
-                    throw;
-                }
+                _logger.LogWarning(ex, "Unable to push. Likely no changes to push.");
             }
         }
 
