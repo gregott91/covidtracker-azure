@@ -15,7 +15,7 @@ namespace CovidTracker.Function
         {}
 
         [FunctionName("SiteGenerator")]
-        public void Run([TimerTrigger("0 * * * *")] TimerInfo timer, ILogger log)
+        public void Run([TimerTrigger("0 0 * * * *")] TimerInfo timer, ILogger log)
         {
             try
             {
